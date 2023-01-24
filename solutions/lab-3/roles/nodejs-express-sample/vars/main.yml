@@ -1,0 +1,3 @@
+---
+# vars file for nodejs-express-sample
+node_apps_location: /usr/local/opt/node

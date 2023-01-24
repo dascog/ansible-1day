@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  tasks:
+    - ansible.builtin.debug:
+        msg: task1
+
+    - name: Include task list in play
+      ansible.builtin.include_tasks:
+        file: stuff.yaml
+
+    - ansible.builtin.debug:
+        msg: task10
+
+- hosts: localhost
+  vars:
+    hostvar: stuff-include
+  tasks:
+    - ansible.builtin.debug:
+        msg: task2
+
+    - name: Include task list in play only if the condition is true
+      ansible.builtin.include_tasks: "{{ hostvar }}.yaml"
+      when: hostvar is defined
+
+    - name: Apply tags to tasks within included file
+      ansible.builtin.include_tasks:
+        file: stuff-install.yaml
+        apply:
+          tags:
+            - install
+      tags:
+        - always

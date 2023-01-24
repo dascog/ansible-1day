@@ -1,0 +1,17 @@
+---
+- name: Looping over a dictionary
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Iterate over dictionary
+      debug:
+        msg:
+        - "The {{ item.key }} of your car is {{ item.value }}"
+
+      loop: "{{ my_car | dict2items }}"
+      vars:
+        my_car:
+          Color: Blue
+          Model: Corvette
+          Transmission: Manual
+          Price: $20,000

@@ -1,0 +1,36 @@
+---
+# tasks file for nodejs-express-sample
+- name: Setup the yum repository for Nodejs
+  get_url:
+      url: https://rpm.nodesource.com/setup_16.x
+      dest: ./yum-nodejs-setup.sh
+      mode: 0755
+
+- name: run the setup file
+  command: ./yum-nodejs-setup.sh
+
+- name: Install Nodejs
+  yum:
+    name: nodejs
+    state: present
+
+- name: Install Forever (to run our Node.js app).
+  npm: name=forever global=yes state=present
+
+- name: Ensure Node.js app folder exists.
+  file: "path={{ node_apps_location }} state=directory"
+
+- name: Copy example Node.js app to server.
+  copy: "src=app dest={{ node_apps_location }}"
+
+- name: Install app dependencies defined in package.json.
+  npm: "path={{ node_apps_location }}/app"
+
+- name: Check list of running Node.js apps.
+  command: forever list
+  register: forever_list
+  changed_when: false
+
+- name: Start example Node.js app.
+  command: "forever start {{ node_apps_location }}/app/app.js"
+  when: "forever_list.stdout.find(node_apps_location + '/app/app.js') == -1"

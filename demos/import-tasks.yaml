@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  tasks:
+    - ansible.builtin.debug:
+        msg: task1
+
+    - name: Import task list in play
+      ansible.builtin.import_tasks:
+        file: stuff.yaml
+
+    - ansible.builtin.debug:
+        msg: task10
+
+- hosts: localhost
+  vars:
+    hostvar: stuff-include
+  tasks:
+    - ansible.builtin.debug:
+        msg: task2
+
+    - name: Import task list in play only if the condition is true
+      ansible.builtin.import_tasks: "{{ hostvar }}.yaml"
+      when: hostvar is defined

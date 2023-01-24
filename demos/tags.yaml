@@ -1,0 +1,35 @@
+---
+- name: Ansible Tags
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Starting Tasks
+      tags: 
+        - always
+        - start
+      block:
+        - debug: 
+            msg: "Ready"
+        - debug: 
+            msg: "Steady"
+        - debug:
+            msg: "Go!"
+
+    - debug:
+        msg: "This is the gold medal"
+      tags:
+        - first
+        - always
+    - debug:
+        msg: "This is the silver medal"
+      tags: second
+    - debug:
+        msg: "This is the bronze medal"
+      tags:
+        - third
+        - always
+    - debug:
+        msg: "Thanks for coming"
+      tags:
+      - fourth
+      - never

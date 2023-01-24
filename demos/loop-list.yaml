@@ -1,0 +1,19 @@
+---
+- name: Looping over a list
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Echo the value
+      command: echo "{{ item }}"
+      loop:
+        - Huey
+        - Dewey
+        - Louie
+        - Uncle Scrooge
+       
+      register: loopresult
+
+    # - name: print the results from loop
+    #   debug:
+    #     var: loopresult
+        

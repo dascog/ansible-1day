@@ -1,0 +1,17 @@
+---
+- name: Looping over a list of hashes
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Iterate over hashes
+      debug:
+        msg:
+        - "Hello '{{ item.fname }}', nice to meet you"
+        - "Your last name as per our record is '{{ item.lname }}'"
+        - "Your planet of residence is '{{ item.location }}'"
+
+      loop:
+        - { fname: 'Luke', lname: 'Skywalker', location: 'Tatooine' }
+        - { fname: 'James', lname: 'Kirk', location: 'Earth' }
+        - { fname: 'Yoda', lname: '', location: 'Dagoba System' }
+        - { fname: 'Mr', lname: 'Spock', location: 'Vulcan' }

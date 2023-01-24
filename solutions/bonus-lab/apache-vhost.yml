@@ -1,0 +1,15 @@
+---
+- name: create apache virtual host
+  hosts: db ## Execute on these hosts only
+  become: yes ## Perform tasks as root user
+
+  roles:
+     - vhost
+
+  post_tasks:
+     - name: install contents from local file
+       copy:
+         src: files/html/
+         dest: "/var/www/vhosts/{{ ansible_hostname }}"
+       changed_when: true  ## This explicitly tells Ansible that the task above was successful, so a change has occured.
+       notify: restart_httpd  ## Execute the handler with the name restart_httpd

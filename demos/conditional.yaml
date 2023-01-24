@@ -1,0 +1,11 @@
+---
+ - name: Logical Operator
+   hosts: localhost
+   gather_facts: false
+   vars:
+     hello: true
+     say_something: "{% if hello == true %} Hello Jinja {% else %} Goodbye Ansible {% endif %}"
+   tasks:
+     - debug:
+         msg:
+          - "{{ say_something }}"
