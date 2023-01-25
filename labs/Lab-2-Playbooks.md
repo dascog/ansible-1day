@@ -172,8 +172,8 @@ The ``forever list`` command registers all the running node.js apps. We can use 
 
 ```bash
     - name: Start example Node.js app.
-      command: "forever start {{ node_apps_location }}/app/node.js"
-      when: "forever_list.stdout.find(node_apps_location + '/app/node.js') == -1"
+      command: "forever start {{ node_apps_location }}/app/app.js"
+      when: "forever_list.stdout.find(node_apps_location + '/app/app.js') == -1"
 ```
 
 - In any web browser type in ``http://<WEB-SERVER-IP>`` and you should be met with the heart-warming text ``Hello World!``!

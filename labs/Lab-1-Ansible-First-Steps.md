@@ -101,6 +101,7 @@ cat <<-EOF > ansible.cfg
 [defaults]
 inventory = inventory
 interpreter_python = /usr/bin/python
+EOF
 ```
 - Now you no longer need to include the ``-i`` argument
 - The second line removes the annoying warnings!
